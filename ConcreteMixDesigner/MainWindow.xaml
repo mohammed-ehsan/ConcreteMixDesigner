@@ -5,8 +5,277 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ConcreteMixDesigner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Concrete Mix Designer" Height="600" Width="1000"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="Height">
+    <Window.Resources>
+        <Style TargetType="StackPanel">
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+        <Style TargetType="GroupBox">
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+        <Style TargetType="Button" x:Key="ButtonStyle1">
+            <Setter Property="Margin" Value="10,2"/>
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="Background" Value="#FCE4EC"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130*"/>
+            <ColumnDefinition Width="130*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <GroupBox Header="Concrete Requirements">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Structural Strength :</Label>
+                        <TextBox MinWidth="70"
+                                 Text="{Binding Mix.StructuralStrengthRequired, Mode=TwoWay}"/>
+                        <Label>MPa</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Slump : </Label>
+                        <ComboBox ItemsSource="{Binding SlumpAmounts}"
+                                  SelectedItem="{Binding Mix.Slump, Mode=TwoWay}"
+                                  MinWidth="70">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={x:Static local:SlumpConverter.Instance}}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                        <Label>mm</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Exposure : </Label>
+                        <ComboBox ItemsSource="{Binding ExposureLevels}"
+                                  SelectedItem="{Binding Mix.Exposure, Mode=TwoWay}"
+                                  MinWidth="120">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={x:Static local:ExposureConverter.Instance}}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <GroupBox Header="Statistical Data">
+                        <StackPanel>
+                            <CheckBox x:Name="StateCheckBox"
+                                Content="Statistical Data Available"
+                                      IsChecked="{Binding Mix.IsStandardDeviationProvided}"/>
+                            <StackPanel IsEnabled="{Binding ElementName=StateCheckBox, Path=IsChecked}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Standard Deviation : </Label>
+                                    <TextBox Width="70"
+                                             Text="{Binding Mix.StandardDeviation, Mode=TwoWay}"/>
+                                    <Label>MPa</Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Samples Count : </Label>
+                                    <TextBox Width="70"
+                                             Text="{Binding Mix.SampleCount, Mode=TwoWay}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Freezing and Thawing">
+                        <StackPanel>
+                            <CheckBox x:Name="HasExposureCheckBox"
+                                Content="Has Exposure"
+                                      IsChecked="{Binding Mix.IsAirEntrained}"/>
+                            <StackPanel IsEnabled="{Binding ElementName=HasExposureCheckBox, Path=IsChecked}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Exposure : </Label>
+                                    <ComboBox ItemsSource="{Binding FreezingExposureLevels}"
+                                              SelectedItem="{Binding FreezingExposure, Mode=TwoWay}"
+                                              MinWidth="100"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Air Content :</Label>
+                                    <TextBox MinWidth="70"
+                                             Text="{Binding Mix.AirContent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                                    <Label>%</Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Dosage :</Label>
+                                    <TextBox MinWidth="70"
+                                             Text="{Binding Mix.AirEntrainerAdmixture.Dosage, Mode=TwoWay}"/>
+                                    <Label>gm/kg cement</Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Water Reducer Admixture">
+                        <StackPanel>
+                            <CheckBox x:Name="UseWaterReducerCheckBox"
+                                Content="Use water reducer"
+                                      IsChecked="{Binding Mix.UseWaterReducer}"/>
+                            <StackPanel IsEnabled="{Binding ElementName=UseWaterReducerCheckBox, Path=IsChecked}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Reduction : </Label>
+                                    <TextBox MinWidth="70"
+                                             Text="{Binding Mix.WaterReducer.Reduction, Mode=TwoWay}"/>
+                                    <Label>%</Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Label>Dosage :</Label>
+                                    <TextBox MinWidth="70"
+                                             Text="{Binding Mix.WaterReducer.Dosage, Mode=TwoWay}"/>
+                                    <Label>gm/kg cement</Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Column="1">
+            <GroupBox Header="Ingredients Properties"
+                      Grid.Column="1">
+                <StackPanel>
+                    <GroupBox Header="Cement">
+                        <StackPanel Orientation="Horizontal">
+                            <Label>Density :</Label>
+                            <TextBox MinWidth="70"
+                                     Text="{Binding Mix.Cement.Density, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                            <Label>kg/m^3</Label>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Fine Aggregate">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Density : </Label>
+                                <TextBox MinWidth="70"
+                                         Text="{Binding Mix.FineAggregate.Density, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Label>kg/m^3</Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Specific Gravity :</Label>
+                                <TextBox MinWidth="70"
+                                         Text="{Binding Mix.FineAggregate.SpecificGravity, Mode=TwoWay}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Fineness Modulus : </Label>
+                                <TextBox MinWidth="70"
+                                         Text="{Binding Mix.FineAggregate.FinenessModulus, Mode=TwoWay}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Moisture Content</Label>
+                                <TextBox MinWidth="70"
+                                         Text="{Binding Mix.FineAggregate.MoistureContent, Mode=TwoWay}"/>
+                                <Label>%</Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Absorbtion : </Label>
+                                <TextBox MinWidth="70"
+                                         Text="{Binding Mix.FineAggregate.Absorbtion, Mode=TwoWay}"/>
+                                <Label>%</Label>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Coarse Aggregate">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Density :</Label>
+                                <TextBox MinWidth="70"
+                                         Text="{Binding Mix.CoarseAggregate.Density, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                <Label>kg/m^3</Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Specific Gravity :</Label>
+                                <TextBox MinWidth="70"
+                                         Text="{Binding Mix.CoarseAggregate.SpecificGravity, Mode=TwoWay}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Nominal Size :</Label>
+                                <ComboBox ItemsSource="{Binding NominalAggregateSizes}"
+                                          SelectedItem="{Binding Mix.CoarseAggregate.NominalSize, Mode=TwoWay}"
+                                          MinWidth="50">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Converter={x:Static local:NominalSizeConverter.Instance}}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Moisture Content</Label>
+                                <TextBox MinWidth="70"
+                                         Text="{Binding Mix.CoarseAggregate.MoistureContent, Mode=TwoWay}"/>
+                                <Label>%</Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Absorbtion :</Label>
+                                <TextBox MinWidth="70"
+                                         Text="{Binding Mix.CoarseAggregate.Absorbtion, Mode=TwoWay}"/>
+                                <Label>%</Label>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox Content="Well Rounded"
+                                          IsChecked="{Binding Mix.CoarseAggregate.IsRounded}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                    <Button Content="Design"
+                            Style="{StaticResource ButtonStyle1}"
+                            Command="{Binding DesignCommand}"/>
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+        <Grid Grid.Column="2">
+            <GroupBox Header="Results">
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Mix Design Strength =</Label>
+                        <TextBlock Text="{Binding Mix.MixDesignStrength, StringFormat='N1'}"/>
+                        <Label>MPa</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Cement Content = </Label>
+                        <TextBlock Text="{Binding Mix.Cement.Weight, StringFormat='N1'}"/>
+                        <Label>kg</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Water Content =</Label>
+                        <TextBlock Text="{Binding Mix.Water.Weight, StringFormat='N1'}"/>
+                        <Label>kg</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Fine Aggregate =</Label>
+                        <TextBlock Text="{Binding Mix.FineAggregate.Weight,StringFormat='N1'}"/>
+                        <Label>kg</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Coarse Aggregate =</Label>
+                        <TextBlock Text="{Binding Mix.CoarseAggregate.Weight, StringFormat='N1'}"/>
+                        <Label>kg</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Air Content =</Label>
+                        <TextBlock Text="{Binding Mix.AirContent, StringFormat='N1'}"/>
+                        <Label>%</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Air Entrainer Adminxture =</Label>
+                        <TextBlock Text="{Binding Mix.AirEntrainerAdmixture.Weight, StringFormat='N4'}"/>
+                        <Label>kg</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Water Reducer =</Label>
+                        <TextBlock Text="{Binding Mix.WaterReducer.Weight, StringFormat='N4'}"/>
+                        <Label>kg</Label>
+                    </StackPanel>
+                </StackPanel>
+            </GroupBox>
+            <Button Content="About"
+                    VerticalAlignment="Bottom"
+                    Style="{StaticResource ButtonStyle1}"
+                    Margin="20,10"
+                    Command="{Binding AboutCommand}"></Button>
+        </Grid>
     </Grid>
 </Window>

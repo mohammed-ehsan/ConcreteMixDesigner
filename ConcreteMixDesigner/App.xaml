@@ -1,8 +1,7 @@
 ﻿<Application x:Class="ConcreteMixDesigner.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ConcreteMixDesigner"
-             StartupUri="MainWindow.xaml">
+             xmlns:local="clr-namespace:ConcreteMixDesigner">
     <Application.Resources>
          
     </Application.Resources>

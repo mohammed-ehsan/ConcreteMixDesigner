@@ -5,6 +5,14 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcreteMixDesigner", "ConcreteMixDesigner\ConcreteMixDesigner.csproj", "{33994897-72BB-44A9-B065-6BC64C8259EB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.Wpf.Mvvm", "..\..\..\Documents\Projects\installmentsalessystem\ME.Wpf.Mvvm\ME.Wpf.Mvvm.csproj", "{4AA0FA34-3241-4EFD-9F8A-6332CC7EAC9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcreteMixDesigner.ViewModels", "ConcreteMixDesigner.ViewModels\ConcreteMixDesigner.ViewModels.csproj", "{3A6FB99D-6BAF-4905-9F76-64194A5F9684}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.ConcreteMix.Designer", "ME.ConcreteMix.Designer\ME.ConcreteMix.Designer.csproj", "{8DF74C56-0E98-43BC-A3B7-10598BC41496}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ME.ConcreteMix.DesignerTests", "ME.ConcreteMix.DesignerTests\ME.ConcreteMix.DesignerTests.csproj", "{C1A8565F-5188-4FE3-A4D4-AB288A08A30F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +23,22 @@ Global
 		{33994897-72BB-44A9-B065-6BC64C8259EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33994897-72BB-44A9-B065-6BC64C8259EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33994897-72BB-44A9-B065-6BC64C8259EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AA0FA34-3241-4EFD-9F8A-6332CC7EAC9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AA0FA34-3241-4EFD-9F8A-6332CC7EAC9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AA0FA34-3241-4EFD-9F8A-6332CC7EAC9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AA0FA34-3241-4EFD-9F8A-6332CC7EAC9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A6FB99D-6BAF-4905-9F76-64194A5F9684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A6FB99D-6BAF-4905-9F76-64194A5F9684}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A6FB99D-6BAF-4905-9F76-64194A5F9684}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A6FB99D-6BAF-4905-9F76-64194A5F9684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DF74C56-0E98-43BC-A3B7-10598BC41496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DF74C56-0E98-43BC-A3B7-10598BC41496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DF74C56-0E98-43BC-A3B7-10598BC41496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DF74C56-0E98-43BC-A3B7-10598BC41496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1A8565F-5188-4FE3-A4D4-AB288A08A30F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1A8565F-5188-4FE3-A4D4-AB288A08A30F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1A8565F-5188-4FE3-A4D4-AB288A08A30F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1A8565F-5188-4FE3-A4D4-AB288A08A30F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

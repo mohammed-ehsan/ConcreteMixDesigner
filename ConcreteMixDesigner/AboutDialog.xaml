@@ -1,0 +1,38 @@
+﻿<Window x:Class="ConcreteMixDesigner.AboutDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ConcreteMixDesigner"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="About" Height="200" Width="450">
+    <Window.Resources>
+        <Style x:Key="NameStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10,3"/>
+            <Setter Property="Foreground" Value="#D84315"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Margin="10">
+            <TextBlock>Developed By :</TextBlock>
+            <TextBlock Style="{StaticResource NameStyle}"> Eng. Mohammed Ehsan Fadhel</TextBlock>
+            <TextBlock TextWrapping="Wrap"
+                       TextAlignment="Justify">As a project for Advanced Concrete Technology Subject to fulfill M.Sc. Structural Engineering courses requirements.</TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <Image Source="/Images/Helmet.png"
+                   RenderOptions.BitmapScalingMode="HighQuality"
+                   Width="60"
+                   HorizontalAlignment="Center"/>
+            <TextBlock HorizontalAlignment="Center">Concrete Mix Designer</TextBlock>
+            <TextBlock HorizontalAlignment="Center">V1.0</TextBlock>
+            
+        </StackPanel>
+    </Grid>
+</Window>
