@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -119,6 +120,16 @@ namespace ME.ConcreteMix.Designer
         /// Air entrainment material used if <see cref="IsAirEntrained"/> is set to true.
         /// </summary>
         public AdmixtureMaterial AirEntrainerAdmixture { get; set; } = new AdmixtureMaterial();
+
+        /// <summary>
+        /// Density of concrete mix for SSD aggregate
+        /// </summary>
+        public double Density { get; set; }
+
+        /// <summary>
+        /// Compensate mix ingredients for moisture content in fine and coarse aggregate
+        /// </summary>
+        public bool CompensateForMoisture { get; set; }
 
         #endregion
 
@@ -254,6 +265,33 @@ namespace ME.ConcreteMix.Designer
             this.FineAggregate.Weight = mFineAggregateWeight;
         }
 
+        /// <summary>
+        /// Calculate concrete mix density as SSD
+        /// </summary>
+        /// <returns>Density in kg/m^3</returns>
+        public double CalculateMixDensity()
+        {
+            double mTotalWeight = this.Water.Weight 
+                + this.Cement.Weight 
+                + this.FineAggregate.Weight * (1 + this.FineAggregate.Absorbtion / 100) 
+                + this.CoarseAggregate.Weight * (1 + this.CoarseAggregate.Absorbtion / 100);
+            return mTotalWeight / 1;
+        }
+
+        public void CompensateMoisture()
+        {
+            if (!this.CompensateForMoisture)
+                return;
+            double mFineAgg = this.FineAggregate.Weight * (1 + this.FineAggregate.MoistureContent / 100);
+            double mCoarseAgg = this.CoarseAggregate.Weight * (1 + this.CoarseAggregate.MoistureContent / 100);
+            this.FineAggregate.Weight = mFineAgg;
+            this.CoarseAggregate.Weight = mCoarseAgg;
+            double mFineMoistContribution = this.FineAggregate.Weight * (this.FineAggregate.MoistureContent - this.FineAggregate.Absorbtion) / 100;
+            double mCoarseMoistContribution = this.CoarseAggregate.Weight * (this.CoarseAggregate.MoistureContent - this.CoarseAggregate.Absorbtion) / 100;
+            double mWater = this.Water.Weight - mFineMoistContribution - mCoarseMoistContribution;
+            this.Water.Weight = mWater;
+        }
+
         public void DesignMix()
         {
             CalculateMixDesignStrength();
@@ -264,6 +302,8 @@ namespace ME.ConcreteMix.Designer
             CalculateCoarseAggregate();
             CalculateAdmixtureContent();
             CalculateFineAggregate();
+            CompensateMoisture();
+            this.Density = CalculateMixDensity();
         }
     }
 }

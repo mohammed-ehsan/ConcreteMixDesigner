@@ -220,6 +220,8 @@
                             </StackPanel>
                         </StackPanel>
                     </GroupBox>
+                    <CheckBox Content="Compensate for Aggregate moisture content"
+                              IsChecked="{Binding Mix.CompensateForMoisture}"/>
                     <Button Content="Design"
                             Style="{StaticResource ButtonStyle1}"
                             Command="{Binding DesignCommand}"/>
@@ -268,6 +270,11 @@
                         <Label>Water Reducer =</Label>
                         <TextBlock Text="{Binding Mix.WaterReducer.Weight, StringFormat='N4'}"/>
                         <Label>kg</Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>SSD Density =</Label>
+                        <TextBlock Text="{Binding Mix.Density, StringFormat='N1'}"/>
+                        <Label>kg/m^3</Label>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>

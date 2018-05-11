@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:Microsoft.Windows.Design.Interaction;assembly=Microsoft.Windows.Design.Interaction"
         xmlns:local="clr-namespace:ConcreteMixDesigner"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -32,6 +33,11 @@
                    HorizontalAlignment="Center"/>
             <TextBlock HorizontalAlignment="Center">Concrete Mix Designer</TextBlock>
             <TextBlock HorizontalAlignment="Center">V1.0</TextBlock>
+            <TextBlock>Source Code : </TextBlock>
+            <TextBlock TextWrapping="Wrap"
+                       ><Hyperlink NavigateUri="https://github.com/mohammed-ehsan/ConcreteMixDesigner"
+                                   >
+                            https://github.com/mohammed-ehsan/ConcreteMixDesigner</Hyperlink></TextBlock>
             
         </StackPanel>
     </Grid>
