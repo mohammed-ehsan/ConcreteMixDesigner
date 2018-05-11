@@ -237,6 +237,10 @@
                         <Label>MPa</Label>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
+                        <Label>W/C Ratio = </Label>
+                        <TextBlock Text="{Binding Mix.WCRatio, StringFormat='N3'}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
                         <Label>Cement Content = </Label>
                         <TextBlock Text="{Binding Mix.Cement.Weight, StringFormat='N1'}"/>
                         <Label>kg</Label>

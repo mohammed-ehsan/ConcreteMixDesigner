@@ -182,13 +182,11 @@ namespace ME.ConcreteMix.Designer
         /// <summary>
         /// Calculate <see cref="AirContent"/> of the mixture according to <see cref="CoarseAggregateMaterial.NominalSize"/> and <see cref="FreezingExposure"/> if existed.
         /// </summary>
-        //public void CalculateAirContent()
-        //{
-        //    if (this.IsAirEntrained)
-        //        this.AirContent = AirContentProvider.GetAirContent(this.FreezingExposure, this.CoarseAggregate.NominalSize);
-        //    else
-        //        this.AirContent = AirContentProvider.GetAirContent(this.CoarseAggregate.NominalSize);
-        //}
+        public void CalculateAirContent()
+        {
+            if (!this.IsAirEntrained)
+                this.AirContent = AirContentProvider.GetAirContent(this.CoarseAggregate.NominalSize);
+        }
 
         /// <summary>
         /// Calculate water content <see cref="Water.Weight"/> in kg/m^3 of concrete mix.
@@ -296,7 +294,7 @@ namespace ME.ConcreteMix.Designer
         {
             CalculateMixDesignStrength();
             CalculateWaterCementRatio();
-            //CalculateAirContent();
+            CalculateAirContent();
             CalculateWaterContent();
             CalculateCementContent();
             CalculateCoarseAggregate();
